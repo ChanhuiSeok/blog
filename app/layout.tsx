@@ -1,14 +1,35 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import { jetbrainsMono } from "@/lib/fonts";
+import { siteConfig } from "@/lib/site";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Roddy's Blog",
-    template: "%s | Roddy's Blog",
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
   },
-  description: "일상, 테크, 개발 이야기를 기록하는 블로그",
+  description: siteConfig.description,
+  authors: [{ name: siteConfig.author.name }],
+  openGraph: {
+    type: "website",
+    locale: siteConfig.locale,
+    siteName: siteConfig.name,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    url: siteConfig.url,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+  },
+  alternates: {
+    types: {
+      "application/rss+xml": "/feed.xml",
+    },
+  },
 };
 
 export default function RootLayout({
@@ -17,7 +38,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" suppressHydrationWarning>
+    <html lang={siteConfig.language} suppressHydrationWarning>
       <head>
         <link
           rel="stylesheet"

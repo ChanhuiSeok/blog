@@ -1,12 +1,30 @@
 import Link from "next/link";
 import { getPosts } from "@/lib/posts";
 import { PostCard } from "@/components/blog/PostCard";
+import { siteConfig } from "@/lib/site";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: siteConfig.name,
+  url: siteConfig.url,
+  description: siteConfig.description,
+  author: {
+    "@type": "Person",
+    name: siteConfig.author.name,
+  },
+};
 
 export default async function HomePage() {
   const recentPosts = await getPosts({ published: true, limit: 5 });
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* Hero */}
       <section>
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
