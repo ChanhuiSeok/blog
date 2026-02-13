@@ -1,16 +1,11 @@
 import { NextResponse } from "next/server";
 import { getPosts, createPost } from "@/lib/posts";
-import { verifyAuthFromRequest } from "@/lib/auth";
+import { requireAuth } from "@/lib/auth";
 import { postCreateSchema } from "@/lib/validations";
 
 export async function GET(request: Request) {
-  const isAuth = await verifyAuthFromRequest(request);
-  if (!isAuth) {
-    return NextResponse.json(
-      { success: false, error: "Unauthorized" },
-      { status: 401 },
-    );
-  }
+  const authError = await requireAuth(request);
+  if (authError) return authError;
 
   try {
     const posts = await getPosts();
@@ -24,13 +19,8 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const isAuth = await verifyAuthFromRequest(request);
-  if (!isAuth) {
-    return NextResponse.json(
-      { success: false, error: "Unauthorized" },
-      { status: 401 },
-    );
-  }
+  const authError = await requireAuth(request);
+  if (authError) return authError;
 
   try {
     const body = await request.json();

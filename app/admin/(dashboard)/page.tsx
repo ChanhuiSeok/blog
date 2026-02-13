@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getPostStats, getPosts } from "@/lib/posts";
 import { PostTable } from "@/components/admin/PostTable";
+import type { Category } from "@/types";
 
 export default async function AdminDashboard() {
   const [stats, allPosts] = await Promise.all([
@@ -46,7 +47,7 @@ export default async function AdminDashboard() {
               id: p.id,
               title: p.title,
               slug: p.slug,
-              category: p.category,
+              category: p.category as Category,
               published: p.published,
               createdAt: p.createdAt,
             }))}

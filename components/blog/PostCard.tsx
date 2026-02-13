@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { formatDate, calculateReadingTime } from "@/lib/utils";
-import { CATEGORIES, type Category } from "@/types";
+import { CategoryBadge } from "./CategoryBadge";
+import type { Category } from "@/types";
 
 interface PostCardProps {
   title: string;
   slug: string;
   excerpt: string | null;
-  category: string;
+  category: Category;
   createdAt: string;
   content: string;
 }
@@ -19,20 +20,15 @@ export function PostCard({
   createdAt,
   content,
 }: PostCardProps) {
-  const cat = CATEGORIES[category as Category];
   const readingTime = calculateReadingTime(content);
 
   return (
     <Link
       href={`/blog/${slug}`}
-      className="group -mx-4 block rounded-lg border border-transparent px-4 py-4 no-underline transition-all duration-200 hover:no-underline sm:hover:border-border sm:hover:bg-card sm:hover:shadow-sm sm:hover:-translate-y-0.5"
+      className="group -mx-4 block rounded-lg border border-transparent px-4 py-4 no-underline transition-all duration-200 hover:no-underline sm:hover:border-border sm:hover:bg-card"
     >
       <div className="flex items-center gap-2 text-sm text-muted-foreground">
-        {cat && (
-          <span className={`rounded-md px-2 py-0.5 text-xs font-medium ${cat.bgColor} ${cat.color}`}>
-            {cat.label}
-          </span>
-        )}
+        <CategoryBadge category={category} />
         <time dateTime={createdAt}>{formatDate(createdAt)}</time>
         <span aria-hidden>·</span>
         <span>{readingTime} min read</span>

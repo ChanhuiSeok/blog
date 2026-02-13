@@ -10,7 +10,7 @@ interface Post {
   id: string;
   title: string;
   slug: string;
-  category: string;
+  category: Category;
   published: boolean | null;
   createdAt: string | null;
 }
@@ -76,7 +76,7 @@ export function PostTable({ initialPosts }: PostTableProps) {
             </tr>
           )}
           {posts.map((post) => {
-            const cat = CATEGORIES[post.category as Category];
+            const cat = CATEGORIES[post.category];
             return (
               <tr key={post.id} className="border-b border-border last:border-0">
                 <td className="px-4 py-2">

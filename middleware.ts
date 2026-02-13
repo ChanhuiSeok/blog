@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
-
-const COOKIE_NAME = "admin_token";
+import { COOKIE_NAME } from "./lib/auth.config";
 
 function getSecret() {
   const secret = process.env.JWT_SECRET;

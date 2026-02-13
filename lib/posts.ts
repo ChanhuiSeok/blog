@@ -1,7 +1,7 @@
 import { eq, desc, sql, count } from "drizzle-orm";
 import { db } from "./db";
 import { posts } from "@/drizzle/schema";
-import type { PostCreateInput, PostUpdateInput } from "@/types";
+import type { Category, PostCreateInput, PostUpdateInput } from "@/types";
 
 export async function createPost(input: PostCreateInput) {
   const [post] = await db
@@ -67,7 +67,7 @@ export async function getPosts({
   return query;
 }
 
-export async function getPostsByCategory(category: string) {
+export async function getPostsByCategory(category: Category) {
   return db
     .select()
     .from(posts)

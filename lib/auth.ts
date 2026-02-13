@@ -1,9 +1,8 @@
 import { compare } from "bcryptjs";
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
-
-const COOKIE_NAME = "admin_token";
-const TOKEN_MAX_AGE = 60 * 60 * 24; // 24 hours
+import { NextResponse } from "next/server";
+import { COOKIE_NAME, TOKEN_MAX_AGE } from "./auth.config";
 
 function getSecret() {
   const secret = process.env.JWT_SECRET;
@@ -77,3 +76,17 @@ export async function verifyAuthFromRequest(
 }
 
 export { COOKIE_NAME };
+
+/** Verify auth and return 401 response if unauthorized. Returns null if authorized. */
+export async function requireAuth(
+  request: Request,
+): Promise<NextResponse | null> {
+  const isAuth = await verifyAuthFromRequest(request);
+  if (!isAuth) {
+    return NextResponse.json(
+      { success: false, error: "Unauthorized" },
+      { status: 401 },
+    );
+  }
+  return null;
+}

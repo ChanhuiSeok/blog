@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getPosts } from "@/lib/posts";
 import { PostCard } from "@/components/blog/PostCard";
 import { siteConfig } from "@/lib/site";
+import type { Category } from "@/types";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -58,8 +59,8 @@ export default async function HomePage() {
                 title={post.title}
                 slug={post.slug}
                 excerpt={post.excerpt}
-                category={post.category}
-                createdAt={post.createdAt!}
+                category={post.category as Category}
+                createdAt={post.createdAt ?? ""}
                 content={post.content}
               />
             ))

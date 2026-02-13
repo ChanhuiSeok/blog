@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
-import { verifyAuthFromRequest } from "@/lib/auth";
+import { requireAuth } from "@/lib/auth";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -18,13 +18,8 @@ const ALLOWED_TYPES = [
 ];
 
 export async function POST(request: Request) {
-  const isAuth = await verifyAuthFromRequest(request);
-  if (!isAuth) {
-    return NextResponse.json(
-      { success: false, error: "Unauthorized" },
-      { status: 401 },
-    );
-  }
+  const authError = await requireAuth(request);
+  if (authError) return authError;
 
   try {
     const formData = await request.formData();

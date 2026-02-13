@@ -1,15 +1,10 @@
 import { NextResponse } from "next/server";
-import { verifyAuthFromRequest } from "@/lib/auth";
+import { requireAuth } from "@/lib/auth";
 import { renderMarkdownToHtml } from "@/lib/mdx";
 
 export async function POST(request: Request) {
-  const isAuth = await verifyAuthFromRequest(request);
-  if (!isAuth) {
-    return NextResponse.json(
-      { success: false, error: "Unauthorized" },
-      { status: 401 },
-    );
-  }
+  const authError = await requireAuth(request);
+  if (authError) return authError;
 
   try {
     const { content } = await request.json();
@@ -19,9 +14,9 @@ export async function POST(request: Request) {
     const html = await renderMarkdownToHtml(content);
     return NextResponse.json({ success: true, data: { html } });
   } catch {
-    return NextResponse.json({
-      success: true,
-      data: { html: "<p>미리보기를 생성할 수 없습니다.</p>" },
-    });
+    return NextResponse.json(
+      { success: false, error: "Failed to render preview" },
+      { status: 500 },
+    );
   }
 }

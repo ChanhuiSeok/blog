@@ -1,18 +1,13 @@
 import { NextResponse } from "next/server";
 import { getPost, updatePost, deletePost } from "@/lib/posts";
-import { verifyAuthFromRequest } from "@/lib/auth";
+import { requireAuth } from "@/lib/auth";
 import { postUpdateSchema } from "@/lib/validations";
 
 type Context = { params: Promise<{ id: string }> };
 
 export async function GET(request: Request, { params }: Context) {
-  const isAuth = await verifyAuthFromRequest(request);
-  if (!isAuth) {
-    return NextResponse.json(
-      { success: false, error: "Unauthorized" },
-      { status: 401 },
-    );
-  }
+  const authError = await requireAuth(request);
+  if (authError) return authError;
 
   try {
     const { id } = await params;
@@ -33,13 +28,8 @@ export async function GET(request: Request, { params }: Context) {
 }
 
 export async function PUT(request: Request, { params }: Context) {
-  const isAuth = await verifyAuthFromRequest(request);
-  if (!isAuth) {
-    return NextResponse.json(
-      { success: false, error: "Unauthorized" },
-      { status: 401 },
-    );
-  }
+  const authError = await requireAuth(request);
+  if (authError) return authError;
 
   try {
     const { id } = await params;
@@ -69,13 +59,8 @@ export async function PUT(request: Request, { params }: Context) {
 }
 
 export async function DELETE(request: Request, { params }: Context) {
-  const isAuth = await verifyAuthFromRequest(request);
-  if (!isAuth) {
-    return NextResponse.json(
-      { success: false, error: "Unauthorized" },
-      { status: 401 },
-    );
-  }
+  const authError = await requireAuth(request);
+  if (authError) return authError;
 
   try {
     const { id } = await params;

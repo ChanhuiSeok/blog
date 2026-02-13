@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { getPosts, getPostsByCategory } from "@/lib/posts";
 import { PostCard } from "@/components/blog/PostCard";
 import { CategoryFilter } from "@/components/blog/CategoryFilter";
+import { CATEGORY_VALUES, type Category } from "@/types";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,6 +12,10 @@ export const metadata: Metadata = {
 
 type SearchParams = Promise<{ category?: string }>;
 
+function isValidCategory(value: string): value is Category {
+  return (CATEGORY_VALUES as readonly string[]).includes(value);
+}
+
 export default async function BlogPage({
   searchParams,
 }: {
@@ -19,7 +24,7 @@ export default async function BlogPage({
   const { category } = await searchParams;
 
   const posts =
-    category && category !== "all"
+    category && category !== "all" && isValidCategory(category)
       ? await getPostsByCategory(category)
       : await getPosts({ published: true });
 
@@ -31,7 +36,20 @@ export default async function BlogPage({
       </p>
 
       <div className="mt-8">
-        <Suspense>
+        <Suspense
+          fallback={
+            <div className="flex gap-1">
+              {["All", "Tech", "Daily", "DevLog"].map((label) => (
+                <div
+                  key={label}
+                  className="rounded-md bg-muted px-3 py-1.5 text-sm text-transparent"
+                >
+                  {label}
+                </div>
+              ))}
+            </div>
+          }
+        >
           <CategoryFilter />
         </Suspense>
       </div>
@@ -44,8 +62,8 @@ export default async function BlogPage({
               title={post.title}
               slug={post.slug}
               excerpt={post.excerpt}
-              category={post.category}
-              createdAt={post.createdAt!}
+              category={post.category as Category}
+              createdAt={post.createdAt ?? ""}
               content={post.content}
             />
           ))

@@ -2,8 +2,9 @@ import { notFound } from "next/navigation";
 import { getPostBySlug } from "@/lib/posts";
 import { renderMDX, extractToc } from "@/lib/mdx";
 import { formatDate, calculateReadingTime } from "@/lib/utils";
-import { CATEGORIES, type Category } from "@/types";
+import type { Category } from "@/types";
 import { TableOfContents } from "@/components/blog/TableOfContents";
+import { CategoryBadge } from "@/components/blog/CategoryBadge";
 import { siteConfig } from "@/lib/site";
 import type { Metadata } from "next";
 
@@ -59,7 +60,7 @@ export default async function PostPage({ params }: { params: Params }) {
   ]);
 
   const readingTime = calculateReadingTime(post.content);
-  const cat = CATEGORIES[post.category as Category];
+  const category = post.category as Category;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -86,12 +87,8 @@ export default async function PostPage({ params }: { params: Params }) {
       {/* Header */}
       <header className="mb-8 border-b border-border pb-8">
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          {cat && (
-            <span className={`rounded-md px-2 py-0.5 text-xs font-medium ${cat.bgColor} ${cat.color}`}>
-              {cat.label}
-            </span>
-          )}
-          <time dateTime={post.createdAt!}>{formatDate(post.createdAt!)}</time>
+          <CategoryBadge category={category} />
+          <time dateTime={post.createdAt ?? ""}>{formatDate(post.createdAt ?? "")}</time>
           <span aria-hidden>·</span>
           <span>{readingTime} min read</span>
         </div>
