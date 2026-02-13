@@ -12,8 +12,8 @@ export function TableOfContents({ items }: TableOfContentsProps) {
     <nav className="mb-8 rounded-lg border border-border bg-card p-4">
       <h2 className="mb-3 text-sm font-semibold text-foreground">목차</h2>
       <ul className="space-y-1.5 text-sm">
-        {items.map((item) => (
-          <li key={item.id}>
+        {items.map((item, index) => (
+          <li key={`${item.id}-${index}`}>
             <a
               href={`#${item.id}`}
               className={cn(
