@@ -1,4 +1,4 @@
-import { eq, desc, sql } from "drizzle-orm";
+import { eq, desc, sql, count } from "drizzle-orm";
 import { db } from "./db";
 import { posts } from "@/drizzle/schema";
 import type { PostCreateInput, PostUpdateInput } from "@/types";
@@ -93,6 +93,20 @@ export async function updatePost(id: string, input: PostUpdateInput) {
     .returning();
 
   return updated ?? null;
+}
+
+export async function getPostStats() {
+  const [total] = await db.select({ count: count() }).from(posts);
+  const [published] = await db
+    .select({ count: count() })
+    .from(posts)
+    .where(eq(posts.published, true));
+
+  return {
+    total: total.count,
+    published: published.count,
+    draft: total.count - published.count,
+  };
 }
 
 export async function deletePost(id: string) {

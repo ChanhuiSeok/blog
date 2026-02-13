@@ -63,4 +63,17 @@ export async function getAuthToken(): Promise<string | undefined> {
   return cookieStore.get(COOKIE_NAME)?.value;
 }
 
+/** Verify auth token from request cookies. For use in API routes. */
+export async function verifyAuthFromRequest(
+  request: Request,
+): Promise<boolean> {
+  const cookieHeader = request.headers.get("cookie") ?? "";
+  const match = cookieHeader.match(
+    new RegExp(`(?:^|;\\s*)${COOKIE_NAME}=([^;]*)`),
+  );
+  const token = match?.[1];
+  if (!token) return false;
+  return verifyToken(token);
+}
+
 export { COOKIE_NAME };
