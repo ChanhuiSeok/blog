@@ -37,3 +37,6 @@ next-env.d.ts
 
 # local database
 local.db
+
+# claude
+.claude
