@@ -4,6 +4,8 @@ import { PostCard } from "@/components/blog/PostCard";
 import { siteConfig } from "@/lib/site";
 import type { Category } from "@/types";
 
+export const dynamic = "force-dynamic";
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",

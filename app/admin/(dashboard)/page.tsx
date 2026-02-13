@@ -3,6 +3,8 @@ import { getPostStats, getPosts } from "@/lib/posts";
 import { PostTable } from "@/components/admin/PostTable";
 import type { Category } from "@/types";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminDashboard() {
   const [stats, allPosts] = await Promise.all([
     getPostStats(),
