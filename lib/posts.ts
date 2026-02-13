@@ -1,4 +1,4 @@
-import { eq, desc, sql, count } from "drizzle-orm";
+import { eq, desc, sql, count, and } from "drizzle-orm";
 import { db } from "./db";
 import { posts } from "@/drizzle/schema";
 import type { Category, PostCreateInput, PostUpdateInput } from "@/types";
@@ -71,7 +71,7 @@ export async function getPostsByCategory(category: Category) {
   return db
     .select()
     .from(posts)
-    .where(eq(posts.category, category))
+    .where(and(eq(posts.category, category), eq(posts.published, true)))
     .orderBy(desc(posts.createdAt));
 }
 
