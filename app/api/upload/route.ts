@@ -1,9 +1,13 @@
 import { NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
+import { v2 as cloudinary } from "cloudinary";
 import { verifyAuthFromRequest } from "@/lib/auth";
 
-const UPLOAD_DIR = path.join(process.cwd(), "public", "images");
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_TYPES = [
   "image/jpeg",
@@ -47,15 +51,17 @@ export async function POST(request: Request) {
       );
     }
 
-    await mkdir(UPLOAD_DIR, { recursive: true });
-
-    const ext = path.extname(file.name) || ".png";
-    const filename = `${Date.now()}-${crypto.randomUUID().slice(0, 8)}${ext}`;
     const buffer = Buffer.from(await file.arrayBuffer());
-    await writeFile(path.join(UPLOAD_DIR, filename), buffer);
+    const base64 = `data:${file.type};base64,${buffer.toString("base64")}`;
 
-    const url = `/images/${filename}`;
-    return NextResponse.json({ success: true, data: { url } }, { status: 201 });
+    const result = await cloudinary.uploader.upload(base64, {
+      folder: "blog",
+    });
+
+    return NextResponse.json(
+      { success: true, data: { url: result.secure_url } },
+      { status: 201 },
+    );
   } catch {
     return NextResponse.json(
       { success: false, error: "Failed to upload file" },
