@@ -17,7 +17,7 @@ export function Header() {
 
   return (
     <header className="border-b border-border">
-      <nav className="flex h-14 items-center justify-between">
+      <nav aria-label="Main navigation" className="flex h-14 items-center justify-between">
         {/* Logo */}
         <Link
           href="/"
