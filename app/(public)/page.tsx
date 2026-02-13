@@ -31,7 +31,7 @@ export default async function HomePage() {
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
           Hi, I&apos;m{" "}
           <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-            Roddy
+            Chanhui
           </span>
         </h1>
         <p className="mt-4 text-lg leading-relaxed text-muted-foreground">

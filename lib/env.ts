@@ -26,6 +26,10 @@ function validateEnv() {
     throw new Error("Invalid environment variables");
   }
 
+  if (process.env.NODE_ENV === "production" && !parsed.data.TURSO_AUTH_TOKEN) {
+    throw new Error("TURSO_AUTH_TOKEN is required in production");
+  }
+
   return parsed.data;
 }
 

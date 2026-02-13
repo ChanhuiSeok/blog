@@ -23,7 +23,7 @@ export function Header() {
           href="/"
           className="text-lg font-bold tracking-tight text-foreground no-underline hover:no-underline"
         >
-          Roddy
+          Chanhui
         </Link>
 
         {/* Desktop Navigation */}
