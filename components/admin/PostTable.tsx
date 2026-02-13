@@ -94,13 +94,29 @@ export function PostTable({ initialPosts }: PostTableProps) {
                   <button
                     onClick={() => handleToggle(post.id, post.published)}
                     disabled={toggling === post.id}
-                    className={`rounded-full px-2.5 py-0.5 text-xs font-medium transition-colors ${
-                      post.published
-                        ? "bg-green-100 text-green-700 hover:bg-green-200 dark:bg-green-900/30 dark:text-green-400"
-                        : "bg-zinc-100 text-zinc-500 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400"
-                    } disabled:opacity-50`}
+                    aria-label={post.published ? "Set to draft" : "Set to published"}
+                    className="group flex items-center gap-2 disabled:opacity-50"
                   >
-                    {post.published ? "Published" : "Draft"}
+                    <span
+                      className={`relative inline-flex h-5 w-9 shrink-0 items-center rounded-full transition-colors ${
+                        post.published
+                          ? "bg-green-500 dark:bg-green-600"
+                          : "bg-zinc-300 dark:bg-zinc-600"
+                      }`}
+                    >
+                      <span
+                        className={`inline-block h-3.5 w-3.5 rounded-full bg-white shadow transition-transform ${
+                          post.published ? "translate-x-[18px]" : "translate-x-[3px]"
+                        }`}
+                      />
+                    </span>
+                    <span className={`text-xs font-medium ${
+                      post.published
+                        ? "text-green-700 dark:text-green-400"
+                        : "text-muted-foreground"
+                    }`}>
+                      {post.published ? "Published" : "Draft"}
+                    </span>
                   </button>
                 </td>
                 <td className="px-4 py-2 text-muted-foreground">
