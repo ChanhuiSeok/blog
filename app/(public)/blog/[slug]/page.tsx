@@ -87,7 +87,7 @@ export default async function PostPage({ params }: { params: Params }) {
       <header className="mb-8 border-b border-border pb-8">
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           {cat && (
-            <span className="rounded-md bg-muted px-2 py-0.5 text-xs font-medium text-foreground">
+            <span className={`rounded-md px-2 py-0.5 text-xs font-medium ${cat.bgColor} ${cat.color}`}>
               {cat.label}
             </span>
           )}

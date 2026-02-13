@@ -28,7 +28,10 @@ export default async function HomePage() {
       {/* Hero */}
       <section>
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-          Hi, I&apos;m Roddy
+          Hi, I&apos;m{" "}
+          <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            Roddy
+          </span>
         </h1>
         <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
           소프트웨어 개발자입니다.

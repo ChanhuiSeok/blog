@@ -10,13 +10,13 @@ export function Footer() {
             href="https://github.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-muted-foreground transition-colors hover:text-foreground hover:no-underline"
+            className="text-muted-foreground transition-all duration-200 hover:text-foreground hover:no-underline"
           >
             GitHub
           </Link>
           <Link
             href="/feed.xml"
-            className="text-muted-foreground transition-colors hover:text-foreground hover:no-underline"
+            className="text-muted-foreground transition-all duration-200 hover:text-foreground hover:no-underline"
           >
             RSS
           </Link>

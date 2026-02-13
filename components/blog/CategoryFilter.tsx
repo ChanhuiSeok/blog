@@ -34,7 +34,7 @@ export function CategoryFilter() {
           key={opt.key}
           onClick={() => handleFilter(opt.key)}
           className={cn(
-            "rounded-md px-3 py-1.5 text-sm transition-colors",
+            "rounded-md px-3 py-1.5 text-sm transition-all duration-200",
             current === opt.key
               ? "bg-foreground text-background font-medium"
               : "text-muted-foreground hover:bg-muted hover:text-foreground",

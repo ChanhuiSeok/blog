@@ -25,11 +25,11 @@ export function PostCard({
   return (
     <Link
       href={`/blog/${slug}`}
-      className="group block rounded-lg border border-transparent py-4 no-underline transition-colors hover:no-underline sm:px-4 sm:hover:border-border sm:hover:bg-card"
+      className="group -mx-4 block rounded-lg border border-transparent px-4 py-4 no-underline transition-all duration-200 hover:no-underline sm:hover:border-border sm:hover:bg-card sm:hover:shadow-sm sm:hover:-translate-y-0.5"
     >
       <div className="flex items-center gap-2 text-sm text-muted-foreground">
         {cat && (
-          <span className="rounded-md bg-muted px-2 py-0.5 text-xs font-medium text-foreground">
+          <span className={`rounded-md px-2 py-0.5 text-xs font-medium ${cat.bgColor} ${cat.color}`}>
             {cat.label}
           </span>
         )}

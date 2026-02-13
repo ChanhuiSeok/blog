@@ -33,7 +33,7 @@ export function Header() {
               key={item.href}
               href={item.href}
               className={cn(
-                "rounded-md px-3 py-2 text-sm transition-colors no-underline hover:no-underline",
+                "rounded-md px-3 py-2 text-sm transition-all duration-200 no-underline hover:no-underline",
                 pathname === item.href || pathname.startsWith(item.href + "/")
                   ? "font-medium text-foreground"
                   : "text-muted-foreground hover:text-foreground",
@@ -50,7 +50,7 @@ export function Header() {
           <ThemeToggle />
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className="flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-all duration-200 hover:bg-muted hover:text-foreground"
             aria-label="Toggle menu"
             aria-expanded={mobileOpen}
           >
@@ -99,7 +99,7 @@ export function Header() {
               href={item.href}
               onClick={() => setMobileOpen(false)}
               className={cn(
-                "block rounded-md px-3 py-2 text-sm transition-colors no-underline hover:no-underline",
+                "block rounded-md px-3 py-2 text-sm transition-all duration-200 no-underline hover:no-underline",
                 pathname === item.href || pathname.startsWith(item.href + "/")
                   ? "font-medium text-foreground"
                   : "text-muted-foreground hover:text-foreground",
