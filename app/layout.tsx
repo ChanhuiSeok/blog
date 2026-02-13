@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { ThemeProvider } from "@/components/layout/ThemeProvider";
+import { jetbrainsMono } from "@/lib/fonts";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -16,8 +18,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" suppressHydrationWarning>
-      <body className="min-h-screen bg-background font-sans text-foreground antialiased">
-        {children}
+      <head>
+        <link
+          rel="stylesheet"
+          as="style"
+          crossOrigin="anonymous"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+        />
+      </head>
+      <body
+        className={`${jetbrainsMono.variable} min-h-screen bg-background font-sans text-foreground antialiased`}
+      >
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

@@ -12,22 +12,23 @@
   --destructive: #ef4444;
   --card: #ffffff;
   --card-foreground: #171717;
+  --font-sans: "Pretendard Variable", "Pretendard", system-ui, -apple-system,
+    sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
-/* ── Dark Theme ── */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --muted: #1c1c1c;
-    --muted-foreground: #a3a3a3;
-    --border: #262626;
-    --accent: #60a5fa;
-    --accent-foreground: #0a0a0a;
-    --destructive: #f87171;
-    --card: #141414;
-    --card-foreground: #ededed;
-  }
+/* ── Dark Theme (class-based for next-themes) ── */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --muted: #1c1c1c;
+  --muted-foreground: #a3a3a3;
+  --border: #262626;
+  --accent: #60a5fa;
+  --accent-foreground: #0a0a0a;
+  --destructive: #f87171;
+  --card: #141414;
+  --card-foreground: #ededed;
 }
 
 /* ── Tailwind Theme Tokens ── */
@@ -42,12 +43,15 @@
   --color-destructive: var(--destructive);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
 }
 
 /* ── Base Styles ── */
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: var(--font-sans);
 }
 
 /* ── Typography ── */
@@ -60,13 +64,9 @@ h4 {
   color: var(--foreground);
 }
 
-a {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
+code,
+pre {
+  font-family: var(--font-mono);
 }
 
 /* ── Scrollbar ── */
