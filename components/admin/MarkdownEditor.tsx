@@ -23,6 +23,7 @@ interface MarkdownEditorProps {
   value: string;
   onChange: (value: string) => void;
   onUploadImage?: () => void;
+  uploading?: boolean;
 }
 
 type ToolbarAction =
@@ -92,6 +93,7 @@ export function MarkdownEditor({
   value,
   onChange,
   onUploadImage,
+  uploading,
 }: MarkdownEditorProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const viewRef = useRef<EditorView | null>(null);
@@ -224,10 +226,11 @@ export function MarkdownEditor({
             <button
               type="button"
               onClick={onUploadImage}
+              disabled={uploading}
               title="Upload Image"
-              className="rounded px-2 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              className="rounded px-2 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground disabled:opacity-50"
             >
-              Upload
+              {uploading ? "Uploading..." : "Upload"}
             </button>
           </>
         )}

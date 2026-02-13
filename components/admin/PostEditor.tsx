@@ -27,6 +27,7 @@ export function PostEditor({ initialData }: PostEditorProps) {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
   const [slugManual, setSlugManual] = useState(!!initialData?.slug);
 
@@ -83,6 +84,8 @@ export function PostEditor({ initialData }: PostEditorProps) {
 
     const formData = new FormData();
     formData.append("file", file);
+    setUploading(true);
+    setError("");
 
     try {
       const res = await fetch("/api/upload", {
@@ -98,6 +101,8 @@ export function PostEditor({ initialData }: PostEditorProps) {
       }
     } catch {
       setError("Upload failed");
+    } finally {
+      setUploading(false);
     }
 
     // Reset file input
@@ -269,6 +274,7 @@ export function PostEditor({ initialData }: PostEditorProps) {
             value={content}
             onChange={setContent}
             onUploadImage={handleUploadImage}
+            uploading={uploading}
           />
         </div>
         {/* Preview */}
