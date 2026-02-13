@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getPost, updatePost, deletePost } from "@/lib/posts";
 import { verifyAuthFromRequest } from "@/lib/auth";
+import { postUpdateSchema } from "@/lib/validations";
 
 type Context = { params: Promise<{ id: string }> };
 
@@ -43,7 +44,15 @@ export async function PUT(request: Request, { params }: Context) {
   try {
     const { id } = await params;
     const body = await request.json();
-    const updated = await updatePost(id, body);
+    const parsed = postUpdateSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { success: false, error: parsed.error.issues[0].message },
+        { status: 400 },
+      );
+    }
+
+    const updated = await updatePost(id, parsed.data);
     if (!updated) {
       return NextResponse.json(
         { success: false, error: "Post not found" },

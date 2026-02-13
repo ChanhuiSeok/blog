@@ -1,7 +1,11 @@
 import { compileMDX } from "next-mdx-remote/rsc";
+import { unified } from "unified";
+import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
+import remarkRehype from "remark-rehype";
 import rehypeSlug from "rehype-slug";
 import rehypePrettyCode from "rehype-pretty-code";
+import rehypeStringify from "rehype-stringify";
 import { mdxComponents } from "@/components/mdx";
 import type { Options } from "rehype-pretty-code";
 
@@ -32,6 +36,20 @@ export interface TocItem {
   id: string;
   text: string;
   level: number;
+}
+
+/** Render markdown to HTML string (for preview). Same plugins as renderMDX. */
+export async function renderMarkdownToHtml(source: string): Promise<string> {
+  const result = await unified()
+    .use(remarkParse)
+    .use(remarkGfm)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeSlug)
+    .use(rehypePrettyCode, prettyCodeOptions)
+    .use(rehypeStringify, { allowDangerousHtml: true })
+    .process(source);
+
+  return String(result);
 }
 
 export function extractToc(content: string): TocItem[] {
