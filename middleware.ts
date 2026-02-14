@@ -12,7 +12,22 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Only protect /admin routes (except /admin/login)
-  if (!pathname.startsWith("/admin") || pathname === "/admin/login") {
+  if (!pathname.startsWith("/admin")) {
+    return NextResponse.next();
+  }
+
+  // 이미 로그인된 상태에서 /admin/login 접근 시 /admin으로 리다이렉트
+  if (pathname === "/admin/login") {
+    const token = request.cookies.get(COOKIE_NAME)?.value;
+    const secret = getSecret();
+    if (token && secret) {
+      try {
+        await jwtVerify(token, secret);
+        return NextResponse.redirect(new URL("/admin", request.url));
+      } catch {
+        // 토큰 만료/무효 → 로그인 페이지 진행
+      }
+    }
     return NextResponse.next();
   }
 
