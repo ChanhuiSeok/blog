@@ -16,18 +16,18 @@ export default async function AdminDashboard() {
       <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
 
       {/* Stats */}
-      <div className="mt-6 grid grid-cols-3 gap-4">
+      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
         <div className="rounded-lg border border-border bg-card p-4">
           <p className="text-sm text-muted-foreground">Total Posts</p>
-          <p className="mt-1 text-3xl font-bold">{stats.total}</p>
+          <p className="mt-1 text-2xl font-bold sm:text-3xl">{stats.total}</p>
         </div>
         <div className="rounded-lg border border-border bg-card p-4">
           <p className="text-sm text-muted-foreground">Published</p>
-          <p className="mt-1 text-3xl font-bold">{stats.published}</p>
+          <p className="mt-1 text-2xl font-bold sm:text-3xl">{stats.published}</p>
         </div>
         <div className="rounded-lg border border-border bg-card p-4">
           <p className="text-sm text-muted-foreground">Drafts</p>
-          <p className="mt-1 text-3xl font-bold">{stats.draft}</p>
+          <p className="mt-1 text-2xl font-bold sm:text-3xl">{stats.draft}</p>
         </div>
       </div>
 

@@ -56,8 +56,8 @@ export function PostTable({ initialPosts }: PostTableProps) {
   }
 
   return (
-    <div className="rounded-lg border border-border">
-      <table className="w-full text-sm">
+    <div className="overflow-x-auto rounded-lg border border-border">
+      <table className="w-full min-w-[600px] text-sm">
         <thead>
           <tr className="border-b border-border bg-muted text-left">
             <th className="px-4 py-2 font-medium">Title</th>

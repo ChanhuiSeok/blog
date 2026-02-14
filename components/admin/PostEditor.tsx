@@ -43,6 +43,8 @@ export function PostEditor({ initialData }: PostEditorProps) {
     initialData?.coverImage ?? "",
   );
 
+  const [mobileTab, setMobileTab] = useState<"editor" | "preview">("editor");
+
   const isEdit = !!initialData?.id;
   const isDirty = useRef(false);
 
@@ -159,7 +161,7 @@ export function PostEditor({ initialData }: PostEditorProps) {
   return (
     <div className="flex h-[calc(100vh-4rem)] flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-border px-6 py-3">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-4 py-3 md:px-6">
         <h1 className="text-lg font-bold">
           {isEdit ? "Edit Post" : "New Post"}
         </h1>
@@ -187,7 +189,7 @@ export function PostEditor({ initialData }: PostEditorProps) {
       </div>
 
       {/* Metadata Form */}
-      <div className="grid grid-cols-2 gap-4 border-b border-border px-6 py-4 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 border-b border-border px-4 py-4 md:px-6 lg:grid-cols-4">
         <div className="col-span-2 lg:col-span-1">
           <label className="mb-1 block text-xs font-medium text-muted-foreground">
             Title
@@ -266,10 +268,36 @@ export function PostEditor({ initialData }: PostEditorProps) {
         </div>
       </div>
 
+      {/* Mobile Tab Switcher */}
+      <div className="flex border-b border-border lg:hidden">
+        <button
+          type="button"
+          onClick={() => setMobileTab("editor")}
+          className={`flex-1 px-4 py-2 text-sm font-medium transition-colors ${
+            mobileTab === "editor"
+              ? "border-b-2 border-foreground text-foreground"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          Editor
+        </button>
+        <button
+          type="button"
+          onClick={() => setMobileTab("preview")}
+          className={`flex-1 px-4 py-2 text-sm font-medium transition-colors ${
+            mobileTab === "preview"
+              ? "border-b-2 border-foreground text-foreground"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          Preview
+        </button>
+      </div>
+
       {/* Split View: Editor + Preview */}
       <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-2">
         {/* Editor */}
-        <div className="min-h-0 border-r border-border">
+        <div className={`min-h-0 border-r border-border ${mobileTab === "preview" ? "hidden lg:block" : ""}`}>
           <MarkdownEditor
             value={content}
             onChange={setContent}
@@ -278,7 +306,7 @@ export function PostEditor({ initialData }: PostEditorProps) {
           />
         </div>
         {/* Preview */}
-        <div className="hidden min-h-0 overflow-auto bg-background lg:block">
+        <div className={`min-h-0 overflow-auto bg-background ${mobileTab === "editor" ? "hidden lg:block" : ""}`}>
           <MarkdownPreview content={content} />
         </div>
       </div>
