@@ -33,7 +33,7 @@ export default function AboutPage() {
       {/* Introduction */}
       <div className="mt-8 space-y-4 leading-relaxed text-muted-foreground">
         <p className="whitespace-pre-line">
-          {`구조를 정리하고 확장 가능한 설계를 지향하는 프론트엔드 개발자입니다.
+          {`항상 사용자 입장에서 생각하며 확장 가능한 설계를 지향하는 프론트엔드 개발자입니다.
 React 기반의 실시간 메시지 UI를 개발하며 성능 저하 및 처리 흐름이 복잡해지는 지점을 분석하고 구조를 재정비해왔습니다.
 단기적인 최적화보다, 기능이 늘어나도 흔들리지 않는 구조를 만드는 것을 중요하게 생각합니다.`}
         </p>
