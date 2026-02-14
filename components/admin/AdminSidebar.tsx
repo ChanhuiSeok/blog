@@ -58,6 +58,7 @@ export function AdminSidebar() {
       <div className="border-t border-border p-2">
         <Link
           href="/"
+          target="_blank"
           className="block rounded-md px-3 py-2 text-sm text-muted-foreground no-underline transition-colors hover:bg-muted hover:text-foreground hover:no-underline"
         >
           View Blog
