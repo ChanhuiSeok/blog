@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import { jetbrainsMono } from "@/lib/fonts";
 import { siteConfig } from "@/lib/site";
@@ -40,6 +41,18 @@ export default function RootLayout({
   return (
     <html lang={siteConfig.language} suppressHydrationWarning>
       <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-2N8J8K4H7D"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-2N8J8K4H7D');
+          `}
+        </Script>
         <link
           rel="stylesheet"
           as="style"
