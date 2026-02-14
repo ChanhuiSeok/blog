@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -79,13 +79,6 @@ export function AdminSidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const prevPathname = useRef(pathname);
-
-  // 페이지 이동 시 모바일 메뉴 닫기
-  if (prevPathname.current !== pathname) {
-    prevPathname.current = pathname;
-    if (mobileOpen) setMobileOpen(false);
-  }
 
   async function handleLogout() {
     await fetch("/api/auth/logout", { method: "POST" });
