@@ -7,19 +7,19 @@ export function Footer() {
         <p>&copy; {new Date().getFullYear()} Chanhui. All rights reserved.</p>
         <nav aria-label="Footer links" className="flex items-center gap-4">
           <Link
-            href="https://github.com"
+            href="https://github.com/ChanhuiSeok"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground transition-all duration-200 hover:text-foreground hover:no-underline"
           >
             GitHub
           </Link>
-          <Link
+          <a
             href="/feed.xml"
             className="text-muted-foreground transition-all duration-200 hover:text-foreground hover:no-underline"
           >
             RSS
-          </Link>
+          </a>
         </nav>
       </div>
     </footer>
