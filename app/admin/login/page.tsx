@@ -32,7 +32,6 @@ export default function LoginPage() {
       router.refresh();
     } catch {
       setError("An unexpected error occurred.");
-    } finally {
       setLoading(false);
     }
   }
