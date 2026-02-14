@@ -25,6 +25,7 @@ export default function LoginPage() {
 
       if (!res.ok) {
         setError(data.error || "Login failed.");
+        setLoading(false);
         return;
       }
 
@@ -64,9 +65,7 @@ export default function LoginPage() {
             />
           </div>
 
-          {error && (
-            <p className="text-sm text-destructive">{error}</p>
-          )}
+          {error && <p className="text-sm text-destructive">{error}</p>}
 
           <button
             type="submit"
