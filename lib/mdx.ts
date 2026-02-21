@@ -8,6 +8,7 @@ import rehypePrettyCode from "rehype-pretty-code";
 import rehypeStringify from "rehype-stringify";
 import { mdxComponents } from "@/components/mdx";
 import type { Options } from "rehype-pretty-code";
+import GithubSlugger from "github-slugger";
 
 const prettyCodeOptions: Options = {
   theme: {
@@ -54,16 +55,14 @@ export async function renderMarkdownToHtml(source: string): Promise<string> {
 
 export function extractToc(content: string): TocItem[] {
   const headingRegex = /^(#{2,3})\s+(.+)$/gm;
+  const slugger = new GithubSlugger();
   const toc: TocItem[] = [];
   let match;
 
   while ((match = headingRegex.exec(content)) !== null) {
     const level = match[1].length;
     const text = match[2].replace(/[`*_~]/g, "").trim();
-    const id = text
-      .toLowerCase()
-      .replace(/[^\w\s-]/g, "")
-      .replace(/\s+/g, "-");
+    const id = slugger.slug(text);
     toc.push({ id, text, level });
   }
 
