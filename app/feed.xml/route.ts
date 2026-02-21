@@ -1,6 +1,8 @@
 import { getPosts } from "@/lib/posts";
 import { siteConfig } from "@/lib/site";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const posts = await getPosts({ published: true });
 
