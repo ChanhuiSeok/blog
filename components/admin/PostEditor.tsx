@@ -153,7 +153,6 @@ export function PostEditor({ initialData }: PostEditorProps) {
       router.refresh();
     } catch {
       setError("Failed to save");
-    } finally {
       setSaving(false);
     }
   };
