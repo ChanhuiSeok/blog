@@ -2,10 +2,11 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { MarkdownEditor } from "./MarkdownEditor";
+import { TiptapEditor } from "./TiptapEditor";
 import { MarkdownPreview } from "./MarkdownPreview";
 import { CATEGORIES, type Category } from "@/types";
 import { slugify } from "@/lib/utils";
+import type { Editor } from "@tiptap/react";
 
 interface PostData {
   id?: string;
@@ -26,6 +27,7 @@ interface PostEditorProps {
 export function PostEditor({ initialData }: PostEditorProps) {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const editorRef = useRef<Editor | null>(null);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
@@ -96,8 +98,13 @@ export function PostEditor({ initialData }: PostEditorProps) {
       });
       const json = await res.json();
       if (json.success && json.data?.url) {
-        const imageMarkdown = `![${file.name}](${json.data.url})`;
-        setContent((prev) => prev + `\n${imageMarkdown}\n`);
+        if (editorRef.current) {
+          editorRef.current
+            .chain()
+            .focus()
+            .setImage({ src: json.data.url, alt: file.name })
+            .run();
+        }
       } else {
         setError(json.error || "Upload failed");
       }
@@ -297,11 +304,14 @@ export function PostEditor({ initialData }: PostEditorProps) {
       <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-2">
         {/* Editor */}
         <div className={`min-h-0 border-r border-border ${mobileTab === "preview" ? "hidden lg:block" : ""}`}>
-          <MarkdownEditor
+          <TiptapEditor
             value={content}
             onChange={setContent}
             onUploadImage={handleUploadImage}
             uploading={uploading}
+            onEditorReady={(editor) => {
+              editorRef.current = editor;
+            }}
           />
         </div>
         {/* Preview */}

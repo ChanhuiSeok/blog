@@ -219,32 +219,138 @@ pre {
   color: var(--shiki-dark);
 }
 
-/* ── CodeMirror Editor ── */
-.cm-editor {
-  height: 100%;
-  background: var(--background);
-  color: var(--foreground);
-}
-
-.cm-editor .cm-placeholder {
-  color: var(--muted-foreground);
-}
-
-.cm-editor.cm-focused {
+/* ── TipTap Editor ── */
+.tiptap {
   outline: none;
+  color: #1e293b;
+  line-height: 1.7;
 }
 
-.cm-editor .cm-cursor {
-  border-left-color: var(--foreground);
+.dark .tiptap {
+  color: #e2e8f0;
 }
 
-.cm-editor .cm-selectionBackground,
-.cm-editor.cm-focused .cm-selectionBackground {
-  background: color-mix(in srgb, var(--accent) 25%, transparent);
+.tiptap p.is-editor-empty:first-child::before {
+  color: #94a3b8;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
 }
 
-.cm-editor .cm-activeLine {
-  background: color-mix(in srgb, var(--muted) 50%, transparent);
+.tiptap h1 { font-size: 1.5rem; font-weight: 700; margin: 1rem 0 0.5rem; color: inherit; }
+.tiptap h2 { font-size: 1.25rem; font-weight: 600; margin: 1rem 0 0.5rem; color: inherit; }
+.tiptap h3 { font-size: 1.1rem; font-weight: 600; margin: 0.75rem 0 0.5rem; color: inherit; }
+
+.tiptap p { margin: 0.35rem 0; color: inherit; }
+
+.tiptap ul, .tiptap ol { padding-left: 1.5rem; margin: 0.35rem 0; }
+.tiptap ul { list-style-type: disc; }
+.tiptap ol { list-style-type: decimal; }
+.tiptap li { color: inherit; }
+
+.tiptap blockquote {
+  border-left: 3px solid #94a3b8;
+  padding-left: 1rem;
+  margin: 0.75rem 0;
+  color: #64748b;
+}
+
+.dark .tiptap blockquote {
+  border-left-color: #475569;
+  color: #94a3b8;
+}
+
+.tiptap pre {
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 0.875rem 1rem;
+  border-radius: 0.5rem;
+  margin: 0.75rem 0;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.dark .tiptap pre {
+  background: #0f172a;
+  border: 1px solid #334155;
+}
+
+.tiptap code {
+  background: #f1f5f9;
+  color: #be185d;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.85rem;
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+}
+
+.dark .tiptap code {
+  background: #1e293b;
+  color: #f472b6;
+}
+
+.tiptap pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+
+.tiptap img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin: 0.75rem 0;
+}
+
+.tiptap hr {
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  margin: 1.25rem 0;
+}
+
+.dark .tiptap hr {
+  border-top-color: #334155;
+}
+
+.tiptap a {
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.dark .tiptap a {
+  color: #60a5fa;
+}
+
+.tiptap table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.75rem 0;
+}
+
+.tiptap th,
+.tiptap td {
+  border: 1px solid #e2e8f0;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.dark .tiptap th,
+.dark .tiptap td {
+  border-color: #334155;
+}
+
+.tiptap th {
+  background: #f1f5f9;
+  font-weight: 600;
+}
+
+.dark .tiptap th {
+  background: #1e293b;
 }
 
 /* ── Focus Visible ── */
@@ -252,6 +358,11 @@ pre {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
   border-radius: 2px;
+}
+
+.tiptap:focus-visible,
+.ProseMirror:focus-visible {
+  outline: none;
 }
 
 /* ── Scrollbar ── */
