@@ -26,6 +26,11 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
   },
+  verification: {
+    other: {
+      "naver-site-verification": "0289da1a69b7e9c10119f72ab96f9aea95a0a676",
+    },
+  },
   alternates: {
     types: {
       "application/rss+xml": "/feed.xml",
