@@ -331,9 +331,42 @@ export function TiptapEditor({
         lowlight,
         defaultLanguage: "plaintext",
       }),
-      Image.configure({
+      Image.extend({
+        addStorage() {
+          return {
+            ...this.parent?.(),
+            markdown: {
+              serialize(state: { write: (s: string) => void }, node: { attrs: Record<string, unknown> }) {
+                const { src, alt, title, width, height } = node.attrs;
+                if (width || height) {
+                  const attrs = [
+                    `src="${src}"`,
+                    alt ? `alt="${alt}"` : "",
+                    title ? `title="${title}"` : "",
+                    width ? `width="${Math.round(width as number)}"` : "",
+                    height ? `height="${Math.round(height as number)}"` : "",
+                  ].filter(Boolean).join(" ");
+                  state.write(`<img ${attrs} />`);
+                } else {
+                  state.write(
+                    "![" + (alt || "") + "](" + src +
+                    (title ? ` "${title}"` : "") + ")"
+                  );
+                }
+              },
+              parse: {},
+            },
+          };
+        },
+      }).configure({
         inline: false,
         allowBase64: false,
+        resize: {
+          enabled: true,
+          directions: ["bottom-right"],
+          minWidth: 100,
+          alwaysPreserveAspectRatio: true,
+        },
       }),
       Link.configure({
         openOnClick: false,
@@ -350,7 +383,7 @@ export function TiptapEditor({
       TableCell,
       TableHeader,
       Markdown.configure({
-        html: false,
+        html: true,
         transformCopiedText: true,
         transformPastedText: true,
       }),

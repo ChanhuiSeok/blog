@@ -312,6 +312,47 @@ pre {
   height: auto;
   border-radius: 0.5rem;
   margin: 0.75rem 0;
+  cursor: default;
+}
+
+.tiptap [data-node-view-wrapper] img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+/* ── Image Resize ── */
+.tiptap [data-resize-container] {
+  max-width: 100%;
+}
+
+.tiptap [data-resize-wrapper] {
+  display: inline-block;
+  max-width: 100%;
+}
+
+.tiptap [data-resize-wrapper]:hover [data-resize-handle],
+.tiptap .ProseMirror-selectednode [data-resize-handle] {
+  opacity: 1;
+}
+
+.tiptap [data-resize-handle] {
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border: 2px solid var(--background);
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 10;
+  cursor: nwse-resize;
+  transform: translate(50%, 50%);
+}
+
+.tiptap .ProseMirror-selectednode img {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 0.5rem;
 }
 
 .tiptap hr {
