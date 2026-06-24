@@ -16,8 +16,11 @@ interface Achievement {
   link?: { label: string; href: string };
 }
 
+type Platform = "PC" | "Mobile";
+
 interface Project {
   title: string;
+  platforms: Platform[];
   period: string;
   overview: string;
   achievements: Achievement[];
@@ -39,6 +42,7 @@ const EXPERIENCES: Experience[] = [
     projects: [
       {
         title: "Web Component 기반 AI 채팅 SDK 및 AI 국민비서 개발",
+        platforms: ["PC", "Mobile"],
         period: "2025.03 – 현재",
         overview:
           "특정 프레임워크에 종속되지 않고 어디서든 재사용할 수 있는 범용 AI 채팅 SDK를 개발하고, 이를 활용해 AI 국민비서 서비스를 구축했습니다.",
@@ -65,6 +69,7 @@ const EXPERIENCES: Experience[] = [
       },
       {
         title: "오픈채팅 Lite",
+        platforms: ["Mobile"],
         period: "2022.12 – 현재 (3년 7개월)",
         overview:
           "카카오톡 오픈채팅의 경량화된 웹버전 프론트엔드 개발을 담당하며, 대규모 트래픽 환경에서의 성능 최적화, 안정성 확보 및 운영 효율성 개선에 기여했습니다.",
@@ -94,6 +99,7 @@ const EXPERIENCES: Experience[] = [
       },
       {
         title: "ChatGPT for Kakao",
+        platforms: ["Mobile"],
         period: "2025.03 – 현재",
         overview:
           "유저의 원활한 서비스 진입을 돕는 온보딩 동선과 서비스 전반에 사용되는 공통 UI 컴포넌트를 설계하고 개발했습니다.",
@@ -109,6 +115,7 @@ const EXPERIENCES: Experience[] = [
       },
       {
         title: "PlayMCP web",
+        platforms: ["PC"],
         period: "2025.03 – 현재",
         overview:
           "개발자들이 MCP를 관리하고 등록할 수 있는 전용 개발자 콘솔 페이지를 개발했습니다.",
@@ -124,6 +131,7 @@ const EXPERIENCES: Experience[] = [
       },
       {
         title: "카카오톡 웹버전 FE 개발",
+        platforms: ["PC"],
         period: "2021.02 – 2022.12 (1년 11개월)",
         overview:
           "카카오 고객센터 페이지에 도입된 카카오톡 웹버전의 채팅 기능 및 진입 인터페이스를 개발했습니다.",
@@ -194,6 +202,20 @@ function TechBadge({ label }: { label: string }) {
   );
 }
 
+function PlatformBadge({ platform }: { platform: Platform }) {
+  const styles =
+    platform === "Mobile"
+      ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+      : "border-blue-500/30 bg-blue-500/10 text-blue-600 dark:text-blue-400";
+  return (
+    <span
+      className={`rounded-full border px-2 py-0.5 text-[11px] font-semibold ${styles}`}
+    >
+      {platform}
+    </span>
+  );
+}
+
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
     <h2 className="text-xl font-bold tracking-tight">
@@ -212,7 +234,7 @@ export default function AboutPage() {
 
       {/* Introduction */}
       <div className="mt-8 border-l-2 border-accent pl-5">
-        <p className="whitespace-pre-line text-base leading-relaxed text-muted-foreground">
+        <p className="whitespace-pre-line text-base leading-relaxed text-foreground/85 sm:text-lg">
           {INTRO}
         </p>
       </div>
@@ -226,7 +248,7 @@ export default function AboutPage() {
             {/* Company header */}
             <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
               <div className="flex items-baseline gap-2.5">
-                <span className="text-lg font-bold">{exp.company}</span>
+                <span className="text-xl font-bold">{exp.company}</span>
                 <span className="text-sm font-medium text-muted-foreground">
                   {exp.role}
                 </span>
@@ -244,29 +266,36 @@ export default function AboutPage() {
                   <span className="absolute -left-[1.69rem] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-accent bg-background" />
 
                   <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
-                    <h3 className="text-base font-semibold">{project.title}</h3>
+                    <h3 className="flex flex-wrap items-center gap-x-2 gap-y-1 text-lg font-semibold">
+                      {project.title}
+                      <span className="flex shrink-0 gap-1">
+                        {project.platforms.map((p) => (
+                          <PlatformBadge key={p} platform={p} />
+                        ))}
+                      </span>
+                    </h3>
                     <span className="font-mono text-xs text-muted-foreground">
                       {project.period}
                     </span>
                   </div>
 
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-2 text-[15px] font-medium leading-relaxed text-foreground">
                     {project.overview}
                   </p>
 
-                  <ul className="mt-3 space-y-2">
+                  <ul className="mt-4 space-y-2.5">
                     {project.achievements.map((ach, i) => (
                       <li
                         key={i}
-                        className="flex gap-2.5 text-sm leading-relaxed"
+                        className="flex gap-2.5 text-[15px] leading-relaxed"
                       >
                         <span
                           aria-hidden
-                          className="mt-2 h-1 w-1 shrink-0 rounded-full bg-muted-foreground"
+                          className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/60"
                         />
                         <span className="text-foreground/90">
                           {ach.tag && (
-                            <span className="mr-1.5 rounded bg-accent/10 px-1.5 py-0.5 text-xs font-semibold text-accent">
+                            <span className="mr-1.5 rounded bg-accent/10 px-1.5 py-0.5 text-[13px] font-semibold text-accent">
                               {ach.tag}
                             </span>
                           )}
@@ -276,7 +305,7 @@ export default function AboutPage() {
                               href={ach.link.href}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="mt-1 block text-xs font-medium text-accent no-underline hover:underline"
+                              className="mt-1 block text-sm font-medium text-accent no-underline hover:underline"
                             >
                               🔗 {ach.link.label} &rarr;
                             </a>
@@ -307,10 +336,10 @@ export default function AboutPage() {
               key={skill.title}
               className="rounded-lg border border-border bg-card p-5 transition-colors hover:border-accent/50"
             >
-              <h3 className="text-sm font-semibold text-foreground">
+              <h3 className="text-base font-semibold text-foreground">
                 {skill.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-2.5 text-[15px] leading-relaxed text-foreground/75">
                 {skill.description}
               </p>
             </div>
@@ -341,14 +370,14 @@ export default function AboutPage() {
                 )}
                 <div>
                   <div className="flex items-baseline gap-2">
-                    <span className="font-medium transition-colors group-hover:text-blue-500 dark:group-hover:text-blue-400">
+                    <span className="text-base font-semibold transition-colors group-hover:text-blue-500 dark:group-hover:text-blue-400">
                       {activity.title}
                     </span>
                     <span className="shrink-0 text-xs text-muted-foreground">
                       {activity.platform} &rarr;
                     </span>
                   </div>
-                  <p className="mt-1 whitespace-pre-line text-muted-foreground">
+                  <p className="mt-1.5 whitespace-pre-line text-[15px] leading-relaxed text-foreground/70">
                     {activity.description}
                   </p>
                 </div>
@@ -361,16 +390,17 @@ export default function AboutPage() {
       {/* Social Links */}
       <div className="mt-16">
         <SectionHeading>Links</SectionHeading>
-        <div className="mt-6 flex gap-4">
+        <div className="mt-6 flex flex-wrap gap-3">
           {SOCIAL_LINKS.map((link) => (
             <a
               key={link.label}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-muted-foreground transition-all duration-200 hover:text-foreground hover:no-underline"
+              className="inline-flex items-center gap-1.5 rounded-md border border-border px-3.5 py-1.5 text-sm font-medium text-foreground/80 no-underline transition-colors hover:border-accent/50 hover:text-foreground hover:no-underline"
             >
-              {link.label} &rarr;
+              {link.label}
+              <span aria-hidden>&rarr;</span>
             </a>
           ))}
         </div>
