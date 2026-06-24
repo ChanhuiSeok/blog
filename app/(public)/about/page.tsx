@@ -132,7 +132,7 @@ const EXPERIENCES: Experience[] = [
       {
         title: "카카오톡 웹버전 FE 개발",
         platforms: ["PC"],
-        period: "2021.02 – 2022.12 (1년 11개월)",
+        period: "2021.02 – 2022.11",
         overview:
           "카카오 고객센터 페이지에 도입된 카카오톡 웹버전의 채팅 기능 및 진입 인터페이스를 개발했습니다.",
         achievements: [
