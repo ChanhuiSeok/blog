@@ -37,6 +37,13 @@ next-env.d.ts
 
 # local database
 local.db
+db.sqlite
+*.sqlite
+*.sqlite-journal
+*.db-journal
+
+# drizzle migrations (schema applied via drizzle-kit push)
+drizzle/migrations/
 
 # claude
 .claude
