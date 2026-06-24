@@ -70,7 +70,7 @@ const EXPERIENCES: Experience[] = [
       {
         title: "오픈채팅 Lite",
         platforms: ["Mobile"],
-        period: "2022.12 – 현재 (3년 7개월)",
+        period: "2022.12 – 현재",
         overview:
           "누구나 인원수 제한 없이 다함께 채팅할 수 있는 오픈채팅 Lite 웹버전 프론트엔드 개발을 담당하고 있으며, 대규모 트래픽 환경에서의 성능 최적화, 안정성 확보 및 운영 효율성 개선에 기여했습니다.",
         achievements: [
