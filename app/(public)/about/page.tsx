@@ -7,8 +7,21 @@ export const metadata: Metadata = {
   description: "Chanhui에 대해 알아보세요.",
 };
 
-const INTRO = `성능 최적화와 견고한 아키텍처 설계에 집중하며, 언제나 사용자 입장에서 고민하는 프론트엔드 엔지니어입니다. 단순히 화면을 구현하는 것을 넘어, UI 렌더링, 도메인 비즈니스 로직, 통신 계층의 관심사를 명확히 분리하여 장기적으로 유지보수 가능하고 확장성 있는 구조를 설계하는 것을 지향합니다.
-대규모 트래픽이 발생하는 실시간 채팅 환경부터 재사용 가능한 SDK 개발까지, 복잡한 프론트엔드 문제를 구조적인 접근으로 해결하는 것에 깊은 흥미를 느낍니다.`;
+const INTRO = `사용자 입장에서 고민하며, **성능 최적화와 견고한 아키텍처 설계**에 집중하는 프론트엔드 엔지니어입니다.
+화면을 그리는 부분, 비즈니스 로직, 서버와 통신하는 부분을 명확히 나눠서 **유지보수하기 좋은 구조와 읽기 쉬운 코드**를 지향합니다.
+대규모 실시간 채팅부터 재사용 가능한 SDK까지, 복잡한 문제를 구조적으로 풀어내는 데서 즐거움을 느낍니다.`;
+
+function renderWithBold(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith("**") && part.endsWith("**") ? (
+      <strong key={i} className="font-semibold text-foreground">
+        {part.slice(2, -2)}
+      </strong>
+    ) : (
+      part
+    ),
+  );
+}
 
 interface Achievement {
   tag?: string;
@@ -235,7 +248,7 @@ export default function AboutPage() {
       {/* Introduction */}
       <div className="mt-8 border-l-2 border-accent pl-5">
         <p className="whitespace-pre-line text-base leading-relaxed text-foreground/85 sm:text-lg">
-          {INTRO}
+          {renderWithBold(INTRO)}
         </p>
       </div>
 
