@@ -89,7 +89,7 @@ const EXPERIENCES: Experience[] = [
         achievements: [
           {
             tag: "성능 최적화",
-            text: "대량의 메시지 유입 시 발생하는 렌더링 병목 현상을 방지하기 위해 비동기 처리 및 Message Queue를 도입하여, 성능 저하 없는 쾌적한 실시간 채팅 경험 제공",
+            text: "대량의 메시지 유입 시 발생하는 렌더링 병목 현상을 방지하기 위해 비동기 처리 및 Message Queue를 도입하여, 성능 저하 없는 쾌적한 실시간 채팅 경험 제공. Lighthouse 기반 성능 측정 도구에서 약 20점 가량 성능 향상을 이끌어냈고, 실제 체감 성능을 높이기 위한 작업을 계속해서 진행했습니다.",
             link: {
               label: "관련 기술 블로그 기고: 설계를 변경하여 성능 개선하기",
               href: "https://tech.kakao.com/posts/686",
