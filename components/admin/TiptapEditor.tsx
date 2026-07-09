@@ -336,7 +336,10 @@ export function TiptapEditor({
           return {
             ...this.parent?.(),
             markdown: {
-              serialize(state: { write: (s: string) => void }, node: { attrs: Record<string, unknown> }) {
+              serialize(
+                state: { write: (s: string) => void; closeBlock: (node: unknown) => void },
+                node: { attrs: Record<string, unknown> },
+              ) {
                 const { src, alt, title, width, height } = node.attrs;
                 if (width || height) {
                   const attrs = [
@@ -353,6 +356,10 @@ export function TiptapEditor({
                     (title ? ` "${title}"` : "") + ")"
                   );
                 }
+                // 블록 이미지(inline: false)이므로 다음 블록과 빈 줄로 분리되도록
+                // 반드시 블록을 닫아준다. 누락 시 다음 줄의 heading 등이 마크다운
+                // 라운드트립에서 문단 텍스트로 붕괴된다.
+                state.closeBlock(node);
               },
               parse: {},
             },
