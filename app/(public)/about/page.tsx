@@ -7,9 +7,9 @@ export const metadata: Metadata = {
   description: "Chanhui에 대해 알아보세요.",
 };
 
-const INTRO = `사용자 입장에서 고민하며, **성능 최적화와 견고한 아키텍처 설계**에 집중하는 프론트엔드 엔지니어입니다.
-화면을 그리는 부분, 비즈니스 로직, 서버와 통신하는 부분을 명확히 나눠서 **유지보수하기 좋은 구조와 읽기 쉬운 코드**를 지향합니다.
-대규모 실시간 채팅부터 재사용 가능한 SDK까지, 복잡한 문제를 구조적으로 풀어내는 데서 즐거움을 느낍니다.`;
+const INTRO = `복잡한 로직은 **읽기 쉬운 구조**로 정리하고, 사용자의 **체감 성능**을 높이는 프론트엔드 엔지니어입니다.
+**대규모 실시간 채팅 서비스 개발** 및 모바일 환경에서의 **성능 최적화** 경험을 바탕으로 안정적인 웹 서비스를 만들기 위해 노력합니다.
+기획·디자인 등 다른 직군의 동료들과도 **유연하고 매끄럽게 소통**하며 협업합니다.`;
 
 function renderWithBold(text: string) {
   return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
@@ -61,13 +61,13 @@ const EXPERIENCES: Experience[] = [
           "특정 프레임워크에 종속되지 않고 어디서든 재사용할 수 있는 범용 AI 채팅 SDK를 개발하고, 이를 활용해 AI 국민비서 서비스를 구축했습니다.",
         achievements: [
           {
-            text: "프레임워크 독립적인 확장성을 확보하기 위해 Web Component 기반의 AI 채팅 SDK 설계 및 개발",
-          },
-          {
-            text: "유지보수성과 확장성을 극대화하기 위해 UI 렌더링, 도메인 비즈니스 로직, SSE(Server-Sent Events) 통신 계층을 철저히 분리",
+            text: "UI, 비즈니스 로직, SSE 통신 계층을 분리한 Web Component 기반 SDK를 설계하여 유지보수성과 확장성을 확보",
           },
           {
             text: "계층 간 매끄러운 데이터 흐름 제어를 위한 이벤트 기반 통신 구조 설계",
+          },
+          {
+            text: "AI 국민비서에 SDK를 적용하여 채팅 화면을 개발했으며, 기존/신규 서비스에서도 SDK 도입을 논의 중",
           },
         ],
         tech: [
@@ -134,10 +134,10 @@ const EXPERIENCES: Experience[] = [
           "개발자가 MCP를 관리·등록할 수 있는 전용 콘솔 페이지를 개발했습니다.",
         achievements: [
           {
-            text: "MCP 목록 조회 화면 및 복잡한 데이터 입력 폼(Form) 인터페이스 개발",
+            text: "개발자 콘솔의 MCP 목록 조회 및 20여 개 필드 기반 대규모 데이터 등록 폼 구현",
           },
           {
-            text: "방대한 데이터가 요구되는 등록 폼의 효율적인 전역/지역 상태 관리 구조를 설계하고, 엄격한 유효성 검증(Validation) 로직 구현",
+            text: "방대한 입력 데이터에 최적화된 상태 관리 구조 설계 및 30여 개 복잡한 유효성 검증 로직 구축",
           },
         ],
         tech: ["React", "TypeScript", "Zustand"],
@@ -150,16 +150,16 @@ const EXPERIENCES: Experience[] = [
           "카카오 고객센터 페이지에 도입된 카카오톡 웹버전의 채팅 기능 및 진입 인터페이스를 개발했습니다.",
         achievements: [
           {
-            text: "카카오톡의 특수한 말풍선 형태를 웹 환경에서 정확히 렌더링하기 위해 누락된 기능을 구현하고, 다양한 말풍선 타입에 대한 테스트 코드 작성",
+            text: "카카오톡 말풍선의 플랫폼별 동작 차이와 렌더링 시 예외 처리를 위해 100개 이상의 테스트 코드를 선제적으로 작성하여 안정적인 릴리즈 기반 마련",
           },
           {
-            text: "Redux의 무거운 보일러플레이트 문제를 해결하기 위해 Redux Toolkit(RTK)으로의 마이그레이션을 주도하여 코드 가독성 및 유지보수성 향상",
+            text: "Redux의 무거운 보일러플레이트 문제를 해결하기 위해 Redux Toolkit 마이그레이션을 진행, 상태 모듈 15개를 slice로 전환하며 상태 정의 코드를 약 60% 축소",
           },
           {
             text: "WebSocket 기반 실시간 통신 서비스 로직 구현",
           },
           {
-            text: "사용자향 웹채팅 진입을 위한 카카오톡 채널 정보 및 채팅 시작 버튼이 포함된 시작 페이지 개발",
+            text: "사용자향 웹채팅에서 카카오톡 채널 정보 및 채팅 시작 버튼이 포함된 시작 페이지 개발",
           },
         ],
         tech: ["React", "Redux", "Redux Toolkit(RTK)", "WebSocket"],
@@ -168,26 +168,38 @@ const EXPERIENCES: Experience[] = [
   },
 ];
 
-const SKILLS = [
+interface Skill {
+  title: string;
+  points: string[];
+}
+
+const SKILLS: Skill[] = [
   {
     title: "Architecture & Design",
-    description:
-      "단순히 화면을 그리는 것을 넘어 UI 렌더링, 비즈니스 로직, 통신 계층의 관심사를 분리하는 아키텍처 설계를 지향합니다. Web Component를 활용하여 특정 프레임워크에 종속되지 않는 재사용 가능한 모듈(SDK)을 설계하고 배포할 수 있습니다.",
+    points: [
+      "UI / 비즈니스 로직 / API 통신 계층의 역할을 분리해 유지보수성 높은 아키텍처 설계",
+      "Web Component로 프레임워크에 종속되지 않는 재사용 모듈과 SDK 구축·배포",
+    ],
   },
   {
-    title: "Mobile Web & WebView Integration",
-    description:
-      "AI 국민비서 및 오픈채팅 Lite와 같은 모바일 타겟 서비스 개발 경험을 통해 모바일 웹뷰 환경에 능숙합니다. iOS/Android 렌더링 차이, 안전 영역(Safe Area) 등 모바일 환경의 제약 사항을 제어할 수 있습니다. DOM 이벤트 라이프사이클(mousedown, blur 등)을 제어하여 키보드의 불필요한 해제를 막고 포커스를 유지하는 등, 모바일 브라우저 특유의 까다로운 제약 사항들을 트러블슈팅하여 매끄러운 UX를 위해 노력합니다.",
+    title: "Mobile Web & WebView",
+    points: [
+      "모바일 웹뷰 환경(Safe Area, OS별 렌더링 차이, 키보드/포커스 등) 제어 및 트러블슈팅",
+      "롱프레스, Lottie 리액션 등 모바일 전용 서비스(AI 국민비서, 오픈채팅 Lite)의 터치 인터랙션 설계·구현",
+    ],
   },
   {
     title: "Performance Optimization",
-    description:
-      "실시간 채팅(WebSocket, SSE) 환경에서 대량의 데이터 유입 시 발생하는 렌더링 병목을 분석하고, Message Queue 및 비동기 처리 도입 등을 통해 웹 서비스의 성능을 근본적으로 개선할 수 있습니다.",
+    points: [
+      "WebSocket / SSE 환경에서 유입되는 대용량 실시간 데이터 처리와 렌더링 병목 개선",
+      "Message Queue 도입과 비동기 처리로 실시간 화면 렌더링 성능 최적화",
+    ],
   },
   {
-    title: "Testing & Stability",
-    description:
-      "Playwright를 활용한 E2E 테스트와 핵심 로직(복잡한 뷰 렌더링 등)에 대한 유닛 테스트 코드를 작성하여, 기능의 릴리즈 안정성을 높이고 사이드 이펙트를 최소화하는 개발 문화를 선호합니다.",
+    title: "Testing & Quality",
+    points: [
+      "Playwright를 활용한 E2E 테스트와 핵심 로직 Unit 테스트로 릴리즈 안정성 확보",
+    ],
   },
 ];
 
@@ -227,6 +239,16 @@ function PlatformBadge({ platform }: { platform: Platform }) {
       {platform}
     </span>
   );
+}
+
+function groupProjects(projects: Project[]) {
+  const ongoing = projects.filter((p) => p.period.includes("현재"));
+  const completed = projects.filter((p) => !p.period.includes("현재"));
+
+  return [
+    { label: "진행 중", projects: ongoing },
+    { label: "완료", projects: completed },
+  ].filter((group) => group.projects.length > 0);
 }
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
@@ -271,71 +293,79 @@ export default function AboutPage() {
               </span>
             </div>
 
-            {/* Projects timeline */}
-            <ol className="mt-6 space-y-8 border-l border-border pl-6">
-              {exp.projects.map((project) => (
-                <li key={project.title} className="relative">
-                  {/* Timeline dot */}
-                  <span className="absolute -left-[1.69rem] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-accent bg-background" />
+            {/* Projects, grouped by progress status */}
+            {groupProjects(exp.projects).map((group) => (
+              <div key={group.label} className="mt-7">
+                <div className="flex items-center gap-3">
+                  <span className="font-mono text-xs tracking-wider text-muted-foreground">
+                    {group.label}
+                  </span>
+                  <span aria-hidden className="h-px flex-1 bg-border" />
+                </div>
 
-                  <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
-                    <h3 className="flex flex-wrap items-center gap-x-2 gap-y-1 text-lg font-semibold">
-                      {project.title}
-                      <span className="flex shrink-0 gap-1">
-                        {project.platforms.map((p) => (
-                          <PlatformBadge key={p} platform={p} />
-                        ))}
-                      </span>
-                    </h3>
-                    <span className="font-mono text-xs text-muted-foreground">
-                      {project.period}
-                    </span>
-                  </div>
-
-                  <p className="mt-2 text-[15px] font-medium leading-relaxed text-foreground">
-                    {project.overview}
-                  </p>
-
-                  <ul className="mt-4 space-y-2.5">
-                    {project.achievements.map((ach, i) => (
-                      <li
-                        key={i}
-                        className="flex gap-2.5 text-[15px] leading-relaxed"
-                      >
-                        <span
-                          aria-hidden
-                          className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/60"
-                        />
-                        <span className="text-foreground/90">
-                          {ach.tag && (
-                            <span className="mr-1.5 rounded bg-accent/10 px-1.5 py-0.5 text-[13px] font-semibold text-accent">
-                              {ach.tag}
-                            </span>
-                          )}
-                          {ach.text}
-                          {ach.link && (
-                            <a
-                              href={ach.link.href}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="mt-1 block text-sm font-medium text-accent no-underline hover:underline"
-                            >
-                              🔗 {ach.link.label} &rarr;
-                            </a>
-                          )}
+                <ol className="mt-5 space-y-8">
+                  {group.projects.map((project) => (
+                    <li key={project.title}>
+                      <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
+                        <h3 className="flex flex-wrap items-center gap-x-2 gap-y-1 text-lg font-semibold">
+                          {project.title}
+                          <span className="flex shrink-0 gap-1">
+                            {project.platforms.map((p) => (
+                              <PlatformBadge key={p} platform={p} />
+                            ))}
+                          </span>
+                        </h3>
+                        <span className="font-mono text-xs text-muted-foreground">
+                          {project.period}
                         </span>
-                      </li>
-                    ))}
-                  </ul>
+                      </div>
 
-                  <div className="mt-3.5 flex flex-wrap gap-1.5">
-                    {project.tech.map((t) => (
-                      <TechBadge key={t} label={t} />
-                    ))}
-                  </div>
-                </li>
-              ))}
-            </ol>
+                      <p className="mt-2 text-[15px] font-medium leading-relaxed text-foreground">
+                        {project.overview}
+                      </p>
+
+                      <ul className="mt-4 space-y-2.5">
+                        {project.achievements.map((ach, i) => (
+                          <li
+                            key={i}
+                            className="flex gap-2.5 text-[15px] leading-relaxed"
+                          >
+                            <span
+                              aria-hidden
+                              className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/60"
+                            />
+                            <span className="text-foreground/90">
+                              {ach.tag && (
+                                <span className="mr-1.5 rounded bg-accent/10 px-1.5 py-0.5 text-[13px] font-semibold text-accent">
+                                  {ach.tag}
+                                </span>
+                              )}
+                              {ach.text}
+                              {ach.link && (
+                                <a
+                                  href={ach.link.href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="mt-1 block text-sm font-medium text-accent no-underline hover:underline"
+                                >
+                                  🔗 {ach.link.label} &rarr;
+                                </a>
+                              )}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <div className="mt-3.5 flex flex-wrap gap-1.5">
+                        {project.tech.map((t) => (
+                          <TechBadge key={t} label={t} />
+                        ))}
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            ))}
           </div>
         ))}
       </div>
@@ -343,21 +373,34 @@ export default function AboutPage() {
       {/* Skills */}
       <div className="mt-16">
         <SectionHeading>Skills</SectionHeading>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+        <dl className="mt-6 divide-y divide-border border-y border-border">
           {SKILLS.map((skill) => (
             <div
               key={skill.title}
-              className="rounded-lg border border-border bg-card p-5 transition-colors hover:border-accent/50"
+              className="grid gap-x-6 gap-y-2 py-5 sm:grid-cols-[190px_1fr]"
             >
-              <h3 className="text-base font-semibold text-foreground">
+              <dt className="text-[15px] font-semibold tracking-tight text-foreground">
                 {skill.title}
-              </h3>
-              <p className="mt-2.5 text-[15px] leading-relaxed text-foreground/75">
-                {skill.description}
-              </p>
+              </dt>
+              <dd>
+                <ul className="space-y-2">
+                  {skill.points.map((point) => (
+                    <li
+                      key={point}
+                      className="flex gap-2.5 text-[15px] leading-relaxed"
+                    >
+                      <span
+                        aria-hidden
+                        className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/60"
+                      />
+                      <span className="text-foreground/75">{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </dd>
             </div>
           ))}
-        </div>
+        </dl>
       </div>
 
       {/* Activities */}
