@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getPostBySlug } from "@/lib/posts";
+import { getPostBySlug, getPublishedSlugs } from "@/lib/posts";
 import { renderMDX, extractToc } from "@/lib/mdx";
 import { formatDate, calculateReadingTime } from "@/lib/utils";
 import type { Category } from "@/types";
@@ -10,6 +10,16 @@ import type { Metadata } from "next";
 
 type Params = Promise<{ slug: string }>;
 
+// 발행된 글은 빌드 시 프리렌더하고, 이후 새 글은 첫 요청 때 생성된다.
+// 글 수정·삭제 시점의 갱신은 API 라우트의 revalidatePost가 담당하며,
+// revalidate는 무효화가 누락된 경우를 위한 안전망이다.
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  const rows = await getPublishedSlugs();
+  return rows.map(({ slug }) => ({ slug }));
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -18,7 +28,9 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await getPostBySlug(slug);
 
-  if (!post) return { title: "Post Not Found" };
+  // 페이지 본문과 동일한 기준으로 막지 않으면 비공개 글의 제목·요약이
+  // <title>과 og 태그로 노출된다.
+  if (!post || !post.published) return { title: "Post Not Found" };
 
   const description = post.excerpt || `${post.content.slice(0, 160)}...`;
   const url = `${siteConfig.url}/blog/${post.slug}`;
@@ -88,7 +100,9 @@ export default async function PostPage({ params }: { params: Params }) {
       <header className="mb-8 border-b border-border pb-8">
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <CategoryBadge category={category} />
-          <time dateTime={post.createdAt ?? ""}>{formatDate(post.createdAt ?? "")}</time>
+          <time dateTime={post.createdAt ?? ""}>
+            {formatDate(post.createdAt ?? "")}
+          </time>
           <span aria-hidden>·</span>
           <span>{readingTime} min read</span>
         </div>

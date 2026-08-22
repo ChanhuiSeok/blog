@@ -4,7 +4,8 @@ import { PostCard } from "@/components/blog/PostCard";
 import { siteConfig } from "@/lib/site";
 import type { Category } from "@/types";
 
-export const dynamic = "force-dynamic";
+// 최근 글 목록은 5분 단위로 재생성하고, 글 발행/수정 시 revalidatePath로 즉시 갱신한다.
+export const revalidate = 300;
 
 const jsonLd = {
   "@context": "https://schema.org",

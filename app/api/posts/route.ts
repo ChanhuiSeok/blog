@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePost } from "@/lib/revalidate";
 import { getPosts, createPost } from "@/lib/posts";
 import { requireAuth } from "@/lib/auth";
 import { postCreateSchema } from "@/lib/validations";
@@ -33,6 +34,7 @@ export async function POST(request: Request) {
     }
 
     const post = await createPost(parsed.data);
+    revalidatePost(post.slug);
     return NextResponse.json({ success: true, data: post }, { status: 201 });
   } catch {
     return NextResponse.json(

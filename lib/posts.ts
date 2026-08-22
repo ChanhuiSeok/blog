@@ -67,6 +67,13 @@ export async function getPosts({
   return query;
 }
 
+export async function getPublishedSlugs() {
+  return db
+    .select({ slug: posts.slug })
+    .from(posts)
+    .where(eq(posts.published, true));
+}
+
 export async function getPostsByCategory(category: Category) {
   return db
     .select()
@@ -110,10 +117,7 @@ export async function getPostStats() {
 }
 
 export async function deletePost(id: string) {
-  const [deleted] = await db
-    .delete(posts)
-    .where(eq(posts.id, id))
-    .returning();
+  const [deleted] = await db.delete(posts).where(eq(posts.id, id)).returning();
 
   return deleted ?? null;
 }

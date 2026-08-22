@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePost } from "@/lib/revalidate";
 import { getPost, updatePost, deletePost } from "@/lib/posts";
 import { requireAuth } from "@/lib/auth";
 import { postUpdateSchema } from "@/lib/validations";
@@ -49,6 +50,7 @@ export async function PUT(request: Request, { params }: Context) {
         { status: 404 },
       );
     }
+    revalidatePost(updated.slug);
     return NextResponse.json({ success: true, data: updated });
   } catch {
     return NextResponse.json(
@@ -71,6 +73,7 @@ export async function DELETE(request: Request, { params }: Context) {
         { status: 404 },
       );
     }
+    revalidatePost(deleted.slug);
     return NextResponse.json({ success: true, data: deleted });
   } catch {
     return NextResponse.json(
