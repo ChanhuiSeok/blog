@@ -5,6 +5,7 @@ import { formatDate, calculateReadingTime } from "@/lib/utils";
 import type { Category } from "@/types";
 import { TableOfContents } from "@/components/blog/TableOfContents";
 import { CategoryBadge } from "@/components/blog/CategoryBadge";
+import { Comments } from "@/components/blog/Comments";
 import { siteConfig } from "@/lib/site";
 import type { Metadata } from "next";
 
@@ -119,6 +120,9 @@ export default async function PostPage({ params }: { params: Params }) {
 
       {/* Content */}
       <div className="prose">{content}</div>
+
+      {/* Comments */}
+      <Comments />
     </article>
   );
 }
