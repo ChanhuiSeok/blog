@@ -217,6 +217,7 @@ const ACTIVITIES = [
 const SOCIAL_LINKS = [
   { label: "GitHub", href: "https://github.com/ChanhuiSeok" },
   { label: "Email", href: "mailto:chanhuicom@gmail.com" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/chanhuiseok/" },
 ];
 
 function TechBadge({ label }: { label: string }) {
